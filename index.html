@@ -1,0 +1,179 @@
+<!Doctype html>
+<head>
+  <style>
+ form {
+  width: 50%;
+  margin: 0 auto;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+input[type="text"] {
+  padding: 0.5em;
+  font-size: 1em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="button"] {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body>
+  <form>
+    <div>
+      <label for="brand">Brand:</label>
+      <input type="text" id="brand" name="brand">
+    </div>
+    <div>
+      <label for="mileage">Mileage:</label>
+      <input type="text" id="mileage" name="mileage">
+    </div>
+    <div>
+      <label for="price">Price:</label>
+      <input type="text" id="price" name="price">
+    </div>
+    <div>
+      <label for="color">Color:</label>
+      <input type="text" id="color" name="color">
+    </div>
+    <div>
+      <input type="button" value="Add Car" onclick="addCar()">
+      <input type="button" value="Modify Car" onclick="modifyCar()">
+      <input type="button" value="Delete Car" onclick="deleteCar()">
+      <input type="button" value="Select Car" onclick="selectCar()">
+    </div>
+  </form>
+</body>
+</html>
+
+<script>
+function addCar() {
+  // Retrieve the input values
+  var brand = document.querySelector("#brand").value;
+  var mileage = document.querySelector("#mileage").value;
+  var price = document.querySelector("#price").value;
+  var color = document.querySelector("#color").value;
+
+  // Create a new car object
+  var car = {
+    brand: brand,
+    mileage: mileage,
+    price: price,
+    color: color
+  };
+
+  // Convert the car object to a JSON string
+  var carJson = JSON.stringify(car);
+
+  // Send the JSON string to the SOAP server using the HTTP POST method
+  fetch("http://localhost/soap/server.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: carJson
+  })
+    .then(response => {
+      // Handle the response from the server
+      if (response.ok) {
+        alert("Car added successfully!");
+      } else {
+        alert("Error adding car.");
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
+function modifyCar() {
+  // Retrieve the input values
+  var brand = document.querySelector("#brand").value;
+  var mileage = document.querySelector("#mileage").value;
+  var price = document.querySelector("#price").value;
+  var color = document.querySelector("#color").value;
+
+  // Create a new car object
+  var car = {
+    brand: brand,
+    mileage: mileage,
+    price: price,
+    color: color
+  };
+
+  // Convert the car object to a JSON string
+  var carJson = JSON.stringify(car);
+
+  // Send the JSON string to the SOAP server using the HTTP POST method
+  fetch("http://localhost/soap/server.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+body: carJson
+})
+.then(response => {
+// Handle the response from the server
+if (response.ok) {
+alert("Car modified successfully!");
+} else {
+alert("Error modifying car.");
+}
+})
+.catch(error => {
+console.log(error);
+});
+}
+
+function deleteCar() {
+// Retrieve the input value
+var brand = document.querySelector("#brand").value;
+
+// Send the brand to the SOAP server using the HTTP DELETE method
+fetch("http://localhost/soap/server.php" + brand, {
+method: "DELETE"
+})
+.then(response => {
+// Handle the response from the server
+if (response.ok) {
+alert("Car deleted successfully!");
+} else {
+alert("Error deleting car.");
+}
+})
+.catch(error => {
+console.log(error);
+});
+}
+
+function selectCar() {
+// Retrieve the input value
+var brand = document.querySelector("#brand").value;
+
+// Send the brand to the SOAP server using the HTTP GET method
+fetch("http://localhost/soap/server.php" + brand)
+.then(response => response.json())
+.then(car => {
+// Update the form fields with the car's data
+document.querySelector("#brand").value = car.brand;
+document.querySelector("#mileage").value = car.mileage;
+document.querySelector("#price").value = car.price;
+document.querySelector("#color").value = car.color;
+})
+.catch(error => {
+console.log(error);
+});
+}
+</script>
+

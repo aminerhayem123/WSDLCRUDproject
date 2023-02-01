@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<definitions name="CarService"
+             targetNamespace="http://localhost/SOAP"
+             xmlns:tns="http://localhost/SOAP"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema targetNamespace="http://localhost/SOAP">
+			<xsd:element name="addCarRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="car" type="tns:Car"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="addCarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="result" type="xsd:boolean"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyCarRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="brand" type="xsd:string"/>
+						<xsd:element name="mileage" type="xsd:string"/>
+						<xsd:element name="price" type="xsd:string"/>
+						<xsd:element name="color" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyCarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="result" type="xsd:boolean"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteCarRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="car" type="tns:Car"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteCarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="result" type="xsd:boolean"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="selectCarRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="brand" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="selectCarResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="car" type="tns:Car"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="Car">
+				<xsd:sequence>
+					<xsd:element name="brand" type="xsd:string"/>
+					<xsd:element name="mileage" type="xsd:string"/>
+					<xsd:element name="price" type="xsd:string"/>
+					<xsd:element name="color" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</types>
+	<message name="addCarRequest">
+		<part name="parameters" element="tns:addCarRequest"/>
+	</message>
+	<message name="addCarResponse">
+		<part name="parameters" element="tns:addCarResponse"/>
+	</message>
+	<message name="modifyCarRequest">
+		<part name="parameters" element="tns:modifyCarRequest"/>
+	</message>
+	<message name="modifyCarResponse">
+		<part name="parameters" element="tns:modifyCarResponse"/>
+	</message>
+	<message name="deleteCarRequest">
+		<part name="parameters" element="tns:deleteCarRequest"/>
+	</message>
+	<message name="deleteCarResponse">
+		<part name="parameters" element="tns:deleteCarResponse"/>
+	</message>
+	<message name="selectCarRequest">
+		<part name="parameters" element="tns:selectCarRequest"/>
+	</message>
+	<message name="selectCarResponse">
+		<part name="parameters" element="tns:selectCarResponse"/>
+	</message>
+	<portType name="CarServicePortType">
+		<operation name="addCar">
+			<input message="tns:addCarRequest"/>
+			<output message="tns:addCarResponse"/>
+		</operation>
+		<operation name="modifyCar">
+			<input message="tns:modifyCarRequest"/>
+			<output message="tns:modifyCarResponse"/>
+		</operation>
+		<operation name="deleteCar">
+			<input message="tns:deleteCarRequest"/>
+			<output message="tns:deleteCarResponse"/>
+		</operation>
+		<operation name="selectCar">
+			<input message="tns:selectCarRequest"/>
+			<output message="tns:selectCarResponse"/>
+		</operation>
+	</portType>
+	<binding name="CarServiceBinding" type="tns:CarServicePortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="addCar">
+			<soap:operation soapAction="http://localhost/SOAP/addCar"/>
+			<input>
+				<soap:body use="encoded" namespace="http://localhost/SOAP" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="http://localhost/SOAP" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="modifyCar">
+			<soap:operation soapAction="http://localhost/SOAP/modifyCar"/>
+			<input>
+				<soap:body use="encoded" namespace="http://localhost/SOAP" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="http://localhost/SOAP" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="deleteCar">
+			<soap:operation soapAction="http://localhost/SOAP/deleteCar"/>
+			<input>
+				<soap:body use="encoded" namespace="http://localhost/SOAP" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="http://localhost/SOAP" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="selectCar">
+			<soap:operation soapAction="http://localhost/SOAP/selectCar"/>
+			<input>
+				<soap:body use="encoded" namespace="http://localhost/SOAP" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="http://localhost/SOAP" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="CarService">
+		<port name="CarServicePort" binding="tns:CarServiceBinding">
+			<soap:address location="http://localhost/SOAP/server.php"/>
+		</port>
+	</service>
+</definitions>
